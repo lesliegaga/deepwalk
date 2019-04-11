@@ -93,6 +93,7 @@ class WalksCorpus(object):
   def __iter__(self):
     for file in self.file_list:
       with open(file, 'r') as f:
+        print("cur file:%s" % file)
         for line in f:
           yield line.split()
 
