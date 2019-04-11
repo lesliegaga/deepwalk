@@ -87,7 +87,7 @@ def process(args):
       vertex_counts = serialized_walks.count_textfiles(walk_files, args.workers)
     else:
       # use degree distribution for frequency in tree
-      vertex_counts = G.degree(nodes=G.iterkeys())
+      vertex_counts = G.degree(nodes=G.keys())
 
     print("Training...")
     walks_corpus = serialized_walks.WalksCorpus(walk_files)
