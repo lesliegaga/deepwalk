@@ -111,7 +111,7 @@ def main():
       for i, j in zip(cy.row, cy.col):
           y_test[i].append(j)
   
-      clf = TopKRanker(LogisticRegression())
+      clf = TopKRanker(LogisticRegression(solver='lbfgs'))
       clf.fit(X_train, y_train_)
   
       # find out how many labels should be predicted
