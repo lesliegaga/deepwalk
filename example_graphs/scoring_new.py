@@ -55,6 +55,7 @@ def main():
         total_right += right
         total_num_adj += num_adj
         print('-------------------')
+        print('cur node:', node)
         print("sort_ctxlist", sort_ctxlist[:num_adj+10])
         print("adj_list:", adj_list)
         print('total adj num:', total_num_adj, " cur node count:", node_count, "total_right:", total_right)
