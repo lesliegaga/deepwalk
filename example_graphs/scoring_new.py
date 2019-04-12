@@ -54,14 +54,24 @@ def main():
         accurate_list.append(accurate)
         total_right += right
         total_num_adj += num_adj
-        if node_count % 100:
-            macro_accurate = np.mean(accurate_list)
-            micro_accurate = total_right / total_num_adj
-            print('total adj num:', total_num_adj, " cur node count:", node_count)
-            print('-------------------')
-            print('Macro accurate:', macro_accurate)
-            print('Micro accurate:', micro_accurate)
-            print('-------------------')
+        print('-------------------')
+        print("sort_ctxlist", sort_ctxlist[:num_adj+10])
+        print("adj_list:", adj_list)
+        print('total adj num:', total_num_adj, " cur node count:", node_count, "total_right:", total_right)
+        print('accurate:', accurate)
+        macro_accurate = np.mean(accurate_list)
+        micro_accurate = total_right / total_num_adj
+        print('Macro accurate:', macro_accurate)
+        print('Micro accurate:', micro_accurate)
+        print('-------------------')
+        # if node_count % 100 == 0:
+        #     macro_accurate = np.mean(accurate_list)
+        #     micro_accurate = total_right / total_num_adj
+        #     print('total adj num:', total_num_adj, " cur node count:", node_count)
+        #     print('-------------------')
+        #     print('Macro accurate:', macro_accurate)
+        #     print('Micro accurate:', micro_accurate)
+        #     print('-------------------')
         node_count += 1
     macro_accurate = np.mean(accurate_list)
     micro_accurate = total_right / total_num_adj
