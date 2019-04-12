@@ -2,5 +2,4 @@
 formatfile=road_graph/roadnet.adjlist
 embfile=/nfs/project/zhujy/roadnet/output/roadnet.embeddings
 python example_graphs/scoring_new.py --emb ${embfile} \
---network ${formatfile} \
---num-shuffle 10 --all
+--network ${formatfile} --undirected ""
