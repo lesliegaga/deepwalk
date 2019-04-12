@@ -37,11 +37,11 @@ def main():
     accurate_list = []
     node_count = 0
     for node in G.keys():
-        cur_feat = model[node]
+        cur_feat = model[str(node)]
         ctx_map = {}
         for context in G.keys():
             if node != context:
-                ctx_feat = model[context]
+                ctx_feat = model[str(context)]
                 ctx_map[context] = np.asscalar(np.inner(cur_feat, ctx_feat))
         sort_ctxlist = sorted(ctx_map.items(), key=lambda x:x[1], reverse=True)
         adj_list = G[node]
