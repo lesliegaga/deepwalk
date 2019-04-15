@@ -38,7 +38,7 @@ def main():
     node_count = 0
     vertex_counts = G.degree(nodes=G.keys())
     s_vertex_counts = sorted(vertex_counts.items(), key=lambda x: x[1], reverse=True)
-    for node, _ in s_vertex_counts:
+    for node, degree in s_vertex_counts:
         cur_feat = model[str(node)]
         ctx_map = {}
         for context in G.keys():
@@ -57,7 +57,7 @@ def main():
         total_right += right
         total_num_adj += num_adj
         print('-------------------')
-        print('cur node:', node)
+        print('cur node:', node, ' degree:', degree)
         print("sort_ctxlist", sort_ctxlist[:num_adj+10])
         print("adj_list:", adj_list)
         print('total adj num:', total_num_adj, " cur node count:", node_count, "total_right:", total_right)
