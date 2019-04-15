@@ -36,7 +36,9 @@ def main():
     total_num_adj = 0.
     accurate_list = []
     node_count = 0
-    for node in G.keys():
+    vertex_counts = G.degree(nodes=G.keys())
+    s_vertex_counts = sorted(vertex_counts.items(), key=lambda x: x[1], reverse=True)
+    for node, _ in s_vertex_counts:
         cur_feat = model[str(node)]
         ctx_map = {}
         for context in G.keys():
