@@ -11,6 +11,7 @@ from deepwalk import graph
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 from gensim.models import KeyedVectors
 
+MAX_EVAL_NUM = 10
 
 def main():
     parser = ArgumentParser("scoring",
@@ -31,7 +32,7 @@ def main():
 
     # 2. Load labels
     G = graph.load_adjacencylist(args.network, undirected=args.undirected)
-
+    sec_G = graph.build_next_step_graph(G, G)
     total_right = 0.
     total_num_adj = 0.
     accurate_list = []
@@ -46,26 +47,35 @@ def main():
                 ctx_feat = model[str(context)]
                 ctx_map[context] = np.asscalar(np.inner(cur_feat, ctx_feat))
         sort_ctxlist = sorted(ctx_map.items(), key=lambda x:x[1], reverse=True)
-        adj_list = G[node]
-        num_adj = len(adj_list)
+        first_adjlist = G[node]
+        second_adjlist = sec_G[node]
+        firt_right = 0.
+        sec_right = 0.
         right = 0.
-        for item in sort_ctxlist[:num_adj]:
-            if item[0] in adj_list:
+        for item in sort_ctxlist[:MAX_EVAL_NUM]:
+            flag = False
+            if item[0] in first_adjlist:
+                firt_right += 1
+                flag = True
+            if item[0] in second_adjlist:
+                sec_right += 1
+                flag = True
+            if flag:
                 right += 1
-        accurate = right / num_adj if num_adj > 0 else 0.
+        accurate = right / MAX_EVAL_NUM if MAX_EVAL_NUM > 0 else 0.
         accurate_list.append(accurate)
         total_right += right
-        total_num_adj += num_adj
-        print('-------------------')
-        print('cur node:', node, ' degree:', degree)
-        print("sort_ctxlist", sort_ctxlist[:num_adj+10])
-        print("adj_list:", adj_list)
-        print('total adj num:', total_num_adj, " cur node count:", node_count, "total_right:", total_right)
-        print('accurate:', accurate)
+        total_num_adj += MAX_EVAL_NUM
         macro_accurate = np.mean(accurate_list)
         micro_accurate = total_right / total_num_adj
-        print('Macro accurate:', macro_accurate)
-        print('Micro accurate:', micro_accurate)
+        print('-------------------')
+        print('cur node:', node, ' degree:', degree)
+        print("sort_ctxlist", sort_ctxlist[:10])
+        print("first_adj_list:", first_adjlist)
+        print("second_adjlist:", second_adjlist)
+        print('total eval num:', total_num_adj, " cur node count:", node_count,
+              "total_right:", total_right, 'firt_right:', firt_right, 'sec_right:', sec_right)
+        print('accurate:', accurate, 'Macro accurate:', macro_accurate, 'Micro accurate:', micro_accurate)
         print('-------------------')
         # if node_count % 100 == 0:
         #     macro_accurate = np.mean(accurate_list)
