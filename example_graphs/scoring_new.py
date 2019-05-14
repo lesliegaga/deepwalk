@@ -45,7 +45,7 @@ def main():
         for context in G.keys():
             if node != context:
                 ctx_feat = model[str(context)]
-                ctx_map[context] = np.asscalar(np.inner(cur_feat, ctx_feat))
+                ctx_map[context] = np.asscalar(np.inner(cur_feat, ctx_feat))/(np.linalg.norm(cur_feat)*np.linalg.norm(ctx_feat))
         sort_ctxlist = sorted(ctx_map.items(), key=lambda x:x[1], reverse=True)
         first_adjlist = G[node]
         # second_adjlist = sec_G[node]
