@@ -65,7 +65,7 @@ def main():
         accurate = right / len(first_adjlist) if len(first_adjlist) > 0 else 0.
         accurate_list.append(accurate)
         total_right += right
-        total_num_adj += MAX_EVAL_NUM
+        total_num_adj += len(first_adjlist)
         macro_accurate = np.mean(accurate_list)
         micro_accurate = total_right / total_num_adj
         print('-------------------')
