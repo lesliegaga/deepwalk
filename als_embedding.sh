@@ -6,15 +6,12 @@ export PYTHONPATH=$PYTHONPATH:.
 formatfile=example_graphs/karate.adjlist
 outputfile=karate.embedding.als
 dim=64
-python -u als_train.py --format adjlist --input ${formatfile} \
---max-memory-data-size 0 --dim ${dim} \
---output ${outputfile}.tmp
+python -u als_train.py --format adjlist --input ${formatfile} --dim ${dim} --output ${outputfile}.tmp
 # --undirected ""
 count=`cat ${outputfile}.tmp|wc -l`
 echo "${count} ${dim}" > ${outputfile}
 awk '{print NR" "$0}' ${outputfile}.tmp >> ${outputfile}
 rm -f ${outputfile}.tmp
 
-python -u example_graphs/scoring_new.py --emb ${outputfile} \
---network ${formatfile}
+python -u example_graphs/scoring_new.py --emb ${outputfile} --network ${formatfile}
 # --undirected ""
