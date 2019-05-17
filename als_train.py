@@ -92,8 +92,9 @@ def process(args):
     # log results
     train_rmse = wals.get_rmse(output_row, output_col, Gmat)
 
-    tf.logging.info('train RMSE = %.2f' % train_rmse)
-
+    log_info = 'train RMSE = %.2f' % train_rmse
+    tf.logging.info(log_info)
+    print(log_info)
 
 def main():
     parser = ArgumentParser("als",
