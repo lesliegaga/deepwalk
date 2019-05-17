@@ -4,7 +4,7 @@ formatfile=road_graph/roadnet.adjlist
 outputfile=roadnet.embeddings
 
 python -u als_train.py --format adjlist --input ${formatfile} \
---max-memory-data-size 0 --representation-size 128 \
+--max-memory-data-size 0 --representation-size 64 \
 --output ${outputfile}
 # --undirected ""
 
