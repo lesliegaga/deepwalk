@@ -7,7 +7,7 @@ formatfile=example_graphs/karate.adjlist
 outputfile=karate.adjlist.als
 dim=64
 python -u als_train.py --format adjlist --input ${formatfile} \
---max-memory-data-size 0 --representation-size {dim} \
+--max-memory-data-size 0 --representation-size ${dim} \
 --output ${outputfile}.tmp
 # --undirected ""
 count=`cat ${outputfile}.tmp|wc -l`
