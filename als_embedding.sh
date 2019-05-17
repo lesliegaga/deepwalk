@@ -3,7 +3,7 @@ export PYTHONPATH=$PYTHONPATH:.
 #inputfile=/nfs/project/zhujy/roadnet/mm_nextlink.txt.20180719
 #formatfile=road_graph/roadnet.adjlist
 #outputfile=roadnet.embeddings
-formatfile=example/karate.adjlist
+formatfile=example_graphs/karate.adjlist
 outputfile=karate.adjlist.als
 dim=64
 python -u als_train.py --format adjlist --input ${formatfile} \
