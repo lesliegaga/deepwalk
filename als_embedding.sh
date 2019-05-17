@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export PYTHONPATH=$PYTHONPATH:.
 #inputfile=/nfs/project/zhujy/roadnet/mm_nextlink.txt.20180719
 formatfile=road_graph/roadnet.adjlist
 outputfile=roadnet.embeddings

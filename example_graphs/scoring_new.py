@@ -7,7 +7,7 @@ __author__ = "Bryan Perozzi"
 import numpy as np
 import sys
 
-import deepwalk.graph as graph
+from deepwalk import graph
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 from gensim.models import KeyedVectors
 
