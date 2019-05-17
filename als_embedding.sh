@@ -6,7 +6,8 @@ export PYTHONPATH=$PYTHONPATH:.
 formatfile=example_graphs/karate.adjlist
 outputfile=karate.embedding.als
 dim=64
-python -u als_train.py --format adjlist --input ${formatfile} --dim ${dim} --output ${outputfile}.tmp
+python -u als_train.py --format adjlist --input ${formatfile} --dim ${dim} --output ${outputfile}.tmp \
+--num-iters 100000 --reg 0.01 --unobs 0.
 # --undirected ""
 count=`cat ${outputfile}.tmp|wc -l`
 echo "${count} ${dim}" > ${outputfile}

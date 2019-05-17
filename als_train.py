@@ -58,19 +58,16 @@ def process(args):
 
     nxG = nx.Graph(G)
     Gmat = nx.adjacency_matrix(nxG).tocoo()
-    unobs = 0.
-    reg = 0.01
-    num_iters = 10000
-    num_rows = Gmat.shape[0]
-    num_cols = Gmat.shape[1]
+
+    num_iters = args.num_iters
 
     tf.logging.info('Train Start: {:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))
 
     # generate model
     input_tensor, row_factor, col_factor, model = wals.wals_model(Gmat,
                                                                   args.dim // 2,
-                                                                  reg,
-                                                                  unobs)
+                                                                  args.reg,
+                                                                  args.unobs)
 
     # factorize matrix
     session = wals.simple_train(model, input_tensor, num_iters)
@@ -116,17 +113,20 @@ def main():
     parser.add_argument('--matfile-variable-name', default='network',
                         help='variable name of adjacency matrix inside a .mat file.')
 
-    parser.add_argument('--max-memory-data-size', default=1000000000, type=int,
-                        help='Size to start dumping walks to disk, instead of keeping them in memory.')
-
     parser.add_argument('--output', required=True,
                         help='Output representation file')
 
     parser.add_argument('--dim', default=64, type=int,
                         help='Number of latent dimensions to learn for each node.')
 
-    parser.add_argument('--seed', default=0, type=int,
-                        help='Seed for random walk generator.')
+    parser.add_argument('--num-iters', default=10000, type=int,
+                        help='number of iters.')
+
+    parser.add_argument('--reg', default=0.01, type=float,
+                        help='weights of l2 norm.')
+
+    parser.add_argument('--unobs', default=0., type=float,
+                        help='weights of unobserved entries.')
 
     parser.add_argument('--undirected', default=True, type=bool,
                         help='Treat graph as undirected.')
